@@ -27,7 +27,7 @@ pipeline {
         stage('build and test') {
             steps {
                 echo 'Testing and Packaging Project..'
-                sh "mvnw  package"
+                sh "mvnw package"
             }
         }
         stage('Deploy') {
