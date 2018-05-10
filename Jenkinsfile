@@ -7,7 +7,7 @@ pipeline {
     }
 
     tools {
-        maven "Maven 3.5.0"
+        maven "Maven 3.5.3"
       }
 
     parameters {
