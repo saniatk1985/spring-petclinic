@@ -13,7 +13,7 @@ pipeline {
       
     environment {
 
-    AWS_BIN = '/home/ec2-user/.local/bin/aws'
+    AWS_BIN = '/usr/bin/aws'
 
     }
 
