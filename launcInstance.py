@@ -24,12 +24,14 @@ ec2 = boto3.resource('ec2')
 ami_id = 'ami-778ba99c'
 
 instances = ec2.create_instances(
-    ImageId=ami_id, InstanceType='t2.micro', MaxCount=1, MinCount=1, KeyName=keyname,
+    ImageId=ami_id, InstanceType='t2.micro', MaxCount=2, MinCount=2, KeyName=keyname,
     NetworkInterfaces=[
         {'SubnetId': subnet_id, 'DeviceIndex': 0, 'AssociatePublicIpAddress': True, 'Groups': [sec_group_id]}
     ]
 )
 instances[0].create_tags(Tags=[{"Key": "Name", "Value": "Test1"}])
 instances[0].wait_until_running()
-
+instances[1].create_tags(Tags=[{"Key": "Name", "Value": "Test2"}])
+instances[1].wait_until_running()
 print(instances[0].id)
+print(instances[1].id)
