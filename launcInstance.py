@@ -9,7 +9,7 @@ keypairs = low_level_client.describe_key_pairs(KeyNames=['san1'], DryRun=False)
 # SSH Key
 keyname = keypairs['KeyPairs'][0]['KeyName']
 
-sec_groups = low_level_client.describe_security_groups(GroupNames=['san-SG1'], DryRun=False)
+sec_groups = low_level_client.describe_security_groups(GroupNames=['sanSG-1'], DryRun=False)
 
 # Security group id
 sec_group_id = sec_groups['SecurityGroups'][0]['GroupId']
