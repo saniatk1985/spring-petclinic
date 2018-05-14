@@ -37,7 +37,12 @@ pipeline {
                 credentialsId: '123',
                 accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                 secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-              ]], [sshUserPrivateKey(credentialsId: '12334', keyFileVariable: 'keyfile')]) { 
+              ], [
+                  $class: 'SshUserPrivateKeyMultiBinding',
+                  credentialsId: '12334',
+                  keyFileVariable: 'keyfile'
+                  ]]) { 
+                  //sshUserPrivateKey(credentialsId: '12334', keyFileVariable: 'keyfile')
                 sh 'AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} AWS_DEFAULT_REGION=eu-central-1 python3 launcInstance.py' 
                 sh 'ansible-playbook -i ./hosts --private-key=${keyfile} --extra-vars "db_name=pc db-port=3306 db_user=san db_pass=1234" playbook1.yml'  
               //sh 'AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} AWS_DEFAULT_REGION=eu-central-1 ${AWS_BIN} ec2 run-instances --image-id ami-778ba99c --count 1 --instance-type t2.micro --key-name san1 --security-group-ids sg-87ebb4ea --subnet-id subnet-87b4deca'
