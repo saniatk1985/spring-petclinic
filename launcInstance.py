@@ -33,5 +33,13 @@ instances[0].create_tags(Tags=[{"Key": "Name", "Value": "App"}])
 instances[0].wait_until_running()
 instances[1].create_tags(Tags=[{"Key": "Name", "Value": "Mdb"}])
 instances[1].wait_until_running()
-print(instances[0].id)
-print(instances[1].id)
+
+#creating ansible inventory file
+ip0 = instances[0].public_ip_address
+ip1 = instances[1].public_ip_address
+f= open("hosts","w+")
+f.write("[app]\n")
+f.write( string(ip0)+"\n")
+f.write( "\n")
+f.write("[db]\n")
+f.write( string(ip1)+"\n")
