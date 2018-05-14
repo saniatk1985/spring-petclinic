@@ -38,7 +38,7 @@ pipeline {
                 accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                 secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
               ], [
-                  $class: 'SshUserPrivateKeyMultiBinding',
+                  $class: 'SSHUserPrivateKeyBinding',
                   credentialsId: '12334',
                   keyFileVariable: 'keyfile'
                   ]]) { 
