@@ -39,8 +39,8 @@ ip0 = instances[0].public_ip_address
 ip1 = instances[1].public_ip_address
 f= open("hosts","w+")
 f.write("[app]\n")
-f.write( string(ip0)+"\n")
+f.write( str(ip0)+"\n")
 f.write( "\n")
 f.write("[db]\n")
-f.write( string(ip1)+"\n")
+f.write( str(ip1)+"\n")
 f.close()
