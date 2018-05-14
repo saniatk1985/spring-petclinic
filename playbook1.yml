@@ -1,0 +1,53 @@
+---
+- hosts: db 
+  name: Install MySQL database
+  become: yes
+  gather_facts: false
+
+   tasks:
+      - name: Install DataBase
+        yum: pkg=mariadb-server state=present update_cache=yes
+      - name: Install mysql-python
+        yum: pkg=MySQL-python state=present   
+
+        #check if mysql service is started
+      - name: Start the MySQL service
+        service: 
+            name: mariadb 
+            state: started
+            enabled: true
+
+      - name: Removes all anonymous user accounts
+        mysql_user:
+            name: ''
+            host_all: yes
+            state: absent
+
+      - name: Removes test database
+        mysql_db:
+            name: test
+            state: absent
+
+      - name: Create new database
+        mysql_db:
+            name: "{{ db_name }}" #'{{ lookup("env", "DB_NAME") }}'
+            state: present
+      
+
+      - name: Create new database user
+        mysql_user:
+            name: "{{ db_user }}" #'{{ lookup("env", "DB_USER") }}'
+            password: "{{ db_pass }}" #'{{ lookup("env", "DB_PASS") }}'
+            priv: '{{ db_name }}.*:ALL,GRANT' # need to check this
+            host: '10.0.0.%'
+            state: present
+
+      - name: Check that user can connect to database
+        mysql_db:
+            login_user: "{{ db_user }}" #'{{ lookup("env", "DB_USER") }}'
+            login_password: "{{ db_pass }}" #'{{ lookup("env", "DB_PASS") }}'
+            login_host: '10.0.0.11' #127.0.0.1
+            login_port: "{{ db_port }}" #'{ lookup("env", "DB_PORT") }}'
+            name: "{{ db_name }}"
+            state: present
+
