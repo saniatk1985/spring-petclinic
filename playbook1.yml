@@ -7,14 +7,14 @@
     
   tasks:
       - name: Install DataBase
-        yum: pkg=mariadb-server state=present update_cache=yes
+        yum: pkg=mysql-server state=present update_cache=yes
       - name: Install mysql-python
         yum: pkg=MySQL-python state=present   
 
         #check if mysql service is started
       - name: Start the MySQL service
         service: 
-            name: mariadb 
+            name: mysqld
             state: started
             enabled: true
 
