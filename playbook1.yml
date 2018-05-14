@@ -1,10 +1,11 @@
 ---
-- hosts: db 
+- hosts: DB-VM 
   name: Install MySQL database
   become: yes
   gather_facts: false
 
-   tasks:
+    
+  tasks:
       - name: Install DataBase
         yum: pkg=mariadb-server state=present update_cache=yes
       - name: Install mysql-python
