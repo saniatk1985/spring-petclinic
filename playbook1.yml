@@ -1,5 +1,5 @@
 ---
-- hosts: DB-VM 
+- hosts: db 
   name: Install MySQL database
   become: yes
   gather_facts: false
