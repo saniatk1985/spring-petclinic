@@ -8,8 +8,17 @@
   tasks:
       - name: Install DataBase
         yum: pkg=mysql-server state=present update_cache=yes
-      - name: Install mysql-python
-        yum: pkg=MySQL-python state=present   
+            
+      - name: Install OS packages
+        yum: name={{item}} state=present
+        with_items:
+        - mysql-devel
+        - gcc
+        - python-devel
+        - MySQL-python
+
+      - name: Install MySQL-Python  module
+        pip: name=MySQL-python
 
         #check if mysql service is started
       - name: Start the MySQL service
