@@ -56,7 +56,7 @@
         mysql_db:
             login_user: "{{ db_user }}" #'{{ lookup("env", "DB_USER") }}'
             login_password: "{{ db_pass }}" #'{{ lookup("env", "DB_PASS") }}'
-            login_host: '{{ ansible_facts.ansible_default_ipv4.address }}'
+            login_host: '{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}'
             login_port: "{{ db_port }}" #'{ lookup("env", "DB_PORT") }}'
             name: "{{ db_name }}"
             state: present
