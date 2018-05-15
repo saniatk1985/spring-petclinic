@@ -1,53 +1,35 @@
 ---
-- hosts: APP-VM
+- hosts: db
+  name: Gather facts from db machine
+  tasks: [ ]
+  
+- hosts: app
   become: yes
   vars:
-    project_dir: /opt/app
-    app_dir: /home/{{ ap_user }}/app
-  # environment:
-  #   DB_USER: '{{ lookup("env", "DB_USER") }}'
-  #   DB_NAME: '{{ lookup("env", "DB_NAME") }}'
-  #   DB_PASS: '{{ lookup("env", "DB_PASS") }}'
-  #   DB_HOST: '{{ lookup("env", "DB_HOST") }}'
-  #   DB_PORT: '{{ lookup("env", "DB_PORT") }}'
+    project_dir: /home/ec2-user/workspace/spring-petclinic/
+    app_dir: /home/{{ ap_user }}/app/
+ 
 
   tasks:
   - name: create user for application
     user:
       name: '{{ ap_user }}'
       password: '{{ ap_pass }}'
-    
-  - name: install java and git
-    yum:
-      name: 
-      - git
-      - java-1.8.0-openjdk-devel
-      state: present
-    
-  
-  - name: clone repository
-    git:
-      repo: 'https://github.com/DmyMi/spring-petclinic'
-      dest: "{{ project_dir }}"
-    register: latest_version
-      
-  - name: install and run maven build
-    shell: |
-      cd {{ project_dir }}
-      {{ project_dir }}/mvnw  package
-    register: app_up
-    when: latest_version is changed 
-
+ 
   - name: mkdir 
     command: "mkdir -p {{ app_dir }}"
     become: yes
     become_mode: su
     become_user: "{{ ap_user }}"
-    when: app_up is changed
+   
 
-  - name: copy jar file
-    shell: cp {{ project_dir }}/target/*.jar {{ app_dir }}/
-    when: app_up is changed
+  - name: copy jar file to remote app machine
+    copy:
+      src: '{{ project_dir }}'/target/*.jar
+      dest: '{{ app_dir }}'
+      owner: '{{ ap_user }}'
+      mode: 0744
+   
 
   - name: run application
     shell: su -c "java -jar {{ app_dir }}/*.jar &" {{ ap_user }}
@@ -56,18 +38,22 @@
       DB_USER: '{{ db_user }}'
       DB_NAME: '{{ db_name }}'
       DB_PASS: '{{ db_pass }}'
-      DB_HOST: '10.0.0.11'
+      DB_HOST: '{{ hostvars[groups['db'][0]]['ansible_eth0']['ipv4']['address'] }}'
       DB_PORT: '{{ db_port }}'
-
+  
+  - name: Get my public IP from ipify.org
+    ipify_facts:
+    register: public_ip
+    
   - name: Wait for the application to start
     wait_for:
        timeout: 60
-       host: '10.0.0.10'
+       host: '{{ public_ip.ansible_facts.ipify_public_ip }}'
        port: 8080
 
   - name: application healthcheck
     uri:
-      url: "http://10.0.0.10:8080/manage/health"
+      url: "http://{{ public_ip.ansible_facts.ipify_public_ip }}:8080/manage/health"
       return_content: yes
     register: health
 
