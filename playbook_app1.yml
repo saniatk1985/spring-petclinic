@@ -25,7 +25,7 @@
 
   - name: copy jar file to remote app machine
     copy:
-      src: "{{ project_dir }}/target/*.jar"
+      src: "{{ project_dir }}/target/spring-petclinic-2.0.0.BUILD-SNAPSHOT.jar"
       dest: "{{ app_dir }}/"
       owner: '{{ ap_user }}'
       mode: 0744
