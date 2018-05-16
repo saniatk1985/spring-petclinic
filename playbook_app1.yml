@@ -25,8 +25,8 @@
 
   - name: copy jar file to remote app machine
     copy:
-      src: '{{ project_dir }}'/target/*.jar
-      dest: '{{ app_dir }}'/
+      src: "{{ project_dir }}/target/*.jar"
+      dest: "{{ app_dir }}/"
       owner: '{{ ap_user }}'
       mode: 0744
    
