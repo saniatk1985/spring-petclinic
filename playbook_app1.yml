@@ -6,7 +6,7 @@
 - hosts: app
   become: yes
   vars:
-    project_dir: /home/ec2-user/workspace/spring-petclinic
+    project_dir: /home/ec2-user/workspace/petclinic
     app_dir: /home/{{ ap_user }}/app
  
 
