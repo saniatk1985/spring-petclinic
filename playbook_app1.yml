@@ -32,7 +32,7 @@
    
 
   - name: run application
-    shell: su -c "java -jar {{ app_dir }}/*.jar &" {{ ap_user }}
+    shell: su -c "java -jar {{ app_dir }}/*.jar" {{ ap_user }}
     become: yes
     environment:
       DB_USER: '{{ db_user }}'
