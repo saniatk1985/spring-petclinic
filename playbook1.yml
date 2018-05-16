@@ -2,7 +2,7 @@
 - hosts: db 
   name: Install MySQL database
   become: yes
-  gather_facts: false
+  gather_facts: yes
 
     
   tasks:
@@ -52,7 +52,7 @@
             host: '10.0.0.%'
             state: present
       - name: test
-        debug: var=hostvars[ansible_facts]['ansible_default_ipv4']['address']
+        debug: var=hostvars[inventory_hostname]['ansible_default_ipv4']['address']
 
       - name: Check that user can connect to database
         mysql_db:
