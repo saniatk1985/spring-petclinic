@@ -48,12 +48,12 @@
   - name: Wait for the application to start
     wait_for:
        timeout: 60
-       host: '{{ public_ip.ansible_facts.ipify_public_ip }}'
+       host: '{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}'
        port: 8080
 
   - name: application healthcheck
     uri:
-      url: "http://{{ public_ip.ansible_facts.ipify_public_ip }}:8080/manage/health"
+      url: "http://{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}:8080/manage/health"
       return_content: yes
     register: health
 
