@@ -52,13 +52,13 @@
             host: '10.0.0.%'
             state: present
       - name: test
-        debug: var=hostvars[inventory_hostname]['ansible_default_ipv4']['address']
+        debug: var=hostvars[ansible_facts]['ansible_default_ipv4']['address']
 
       - name: Check that user can connect to database
         mysql_db:
             login_user: "{{ db_user }}" #'{{ lookup("env", "DB_USER") }}'
             login_password: "{{ db_pass }}" #'{{ lookup("env", "DB_PASS") }}'
-            login_host: "{{ hostvars[host]['ansible_eth0']['ipv4']['address'] }}"
+            login_host: "{{ hostvars[ansible_facts]['ansible_eth0']['ipv4']['address'] }}"
             login_port: "{{ db_port }}" #'{ lookup("env", "DB_PORT") }}'
             name: "{{ db_name }}"
             state: present
