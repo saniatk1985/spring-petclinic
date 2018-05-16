@@ -7,7 +7,7 @@
   become: yes
   vars:
     project_dir: /home/ec2-user/workspace/spring-petclinic/
-    app_dir: /home/{{ ap_user }}/app/
+    app_dir: /home/{{ ap_user }}/app
  
 
   tasks:
@@ -26,7 +26,7 @@
   - name: copy jar file to remote app machine
     copy:
       src: '{{ project_dir }}'/target/*.jar
-      dest: '{{ app_dir }}'
+      dest: '{{ app_dir }}'/
       owner: '{{ ap_user }}'
       mode: 0744
    
