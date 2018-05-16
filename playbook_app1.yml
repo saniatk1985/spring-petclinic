@@ -48,7 +48,7 @@
   - name: Wait for the application to start
     wait_for:
        timeout: 60
-       host: '{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}'
+       host: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
        port: 8080
 
   - name: application healthcheck
