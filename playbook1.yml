@@ -51,9 +51,7 @@
             priv: '{{ db_name }}.*:ALL,GRANT' # need to check this
             host: '10.0.0.%'
             state: present
-      - name: test
-        debug: var=hostvars[inventory_hostname]['ansible_default_ipv4']['address']
-
+      
       - name: Check that user can connect to database
         mysql_db:
             login_user: "{{ db_user }}" #'{{ lookup("env", "DB_USER") }}'
