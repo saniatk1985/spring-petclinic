@@ -5,8 +5,11 @@ RUN mvn package
 
 FROM java:alpine
 WORKDIR /app
-
-COPY --from=builder /app/target/*.jar .
-COPY entry.sh .
+RUN useradd user
+USER user
+COPY --from=builder --chown=user /app/target/*.jar .
+ENV DB_USER=myuser
+ENV DB_HOST=mysql
+ENV DB_PASS=1234
 ENTRYPOINT [ "/bin/sh" ]
-CMD [ "entry.sh" ]
+CMD ["java","-jar","/app/*.jar"]
