@@ -3,7 +3,7 @@
 pipeline {
 
     agent {
-        label 'agent-node-label'
+        dockerfile true 
     }
 
     tools {
