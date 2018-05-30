@@ -3,16 +3,12 @@
 pipeline {
 
     agent {
-        dockerfile true 
+        docker {
+          image 'docker:latest'
+        } 
     }
 
-    tools {
-        maven "Maven 3.5.3"
-      }
-
-    parameters {
-        string(name: 'MAVEN_OPTS', defaultValue: '-Djava.awt.headless=true', description: 'Options for Maven')
-    }
+    
 
     stages {
         stage('Checkout') {
@@ -22,9 +18,9 @@ pipeline {
         }
         stage('Build') {
             steps {
-                echo 'Compiling Project...'
-                sh "mvn -B dependency:resolve ${params.MAVEN_OPTS}"
-                sh "mvn clean compile -B ${params.MAVEN_OPTS}"
+                
+                sh "docker build -t my_image:${BUILD_NUMBER} ./Dockerfile"
+                
             }
         }
         stage('Test and Package') {
