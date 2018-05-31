@@ -19,25 +19,18 @@ pipeline {
         stage('Build') {
             steps {
                 
-                sh "docker build -t my_image:${BUILD_NUMBER} ."
+                sh "docker build -t docker-project:${BUILD_NUMBER} ."
                 
             }
         }
-        stage('Test and Package') {
+        stage('Docker push image') {
             steps {
-                echo 'Testing and Packaging Project..'
-                sh "mvn package -B ${params.MAVEN_OPTS}"
+               withDockerRegistry([ credentialsId: "dbce15cb-cb8c-468b-81ba-50c9cb39fa58", url: "" ]) {
+          sh 'docker push saniatk1985/docker-project:${BUILD_NUMBER}'
+          
+                }
             }
         }
-        stage('Deploy') {
-            steps {
-                parallel(deploy: {
-                    echo 'Deploying...'
-                },
-                archive: {
-                    archive 'target/*.jar'
-                })
-            }
-        }
+        
     }
 }
