@@ -5,7 +5,7 @@ pipeline {
     agent {
         docker {
           image 'docker:latest'
-          args '-v /bin/docker:/usr/local/bin/docker:ro --volume=/run/docker.sock:/var/run/docker.sock'
+          args '-v /bin/docker:/usr/local/bin/docker:ro --volume=/run/docker.sock:/var/run/docker.sock --volume=/run/docker.sock:/run/docker.sock'
         } 
     }
 
