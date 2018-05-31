@@ -5,6 +5,7 @@ pipeline {
     agent {
         docker {
           image 'docker:latest'
+          inside '--volume=/var/run/docker.sock:/var/run/docker.sock'
         } 
     }
 
