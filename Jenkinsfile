@@ -43,14 +43,15 @@ pipeline {
            }
 
             steps {
+                echo 'test'
                 //checkout scm
-                withCredentials([[
-                 $class: 'SSHUserPrivateKeyBinding',
-                  credentialsId: '12334',
-                  keyFileVariable: 'keyfile'
-                  ]]) { 
+              //  withCredentials([[
+              //   $class: 'SSHUserPrivateKeyBinding',
+              //    credentialsId: '12334',
+              //    keyFileVariable: 'keyfile'
+              //    ]]) { 
                                 
-                sh 'ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -vvv -i ./hosts --private-key=${keyfile} --extra-vars "build_number=${BUILD_NUMBER}" playbook_docker.yml'  
+                //sh 'ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -vvv -i ./hosts --private-key=${keyfile} --extra-vars "build_number=${BUILD_NUMBER}" playbook_docker.yml'  
                 //sh 'ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ./hosts --private-key=${keyfile} --extra-vars "db_name=pc db_port=3306 db_user=san db_pass=1234 ap_user=san ap_pass=123456" playbook_app1.yml' 
              
 }
