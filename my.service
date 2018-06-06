@@ -1,0 +1,15 @@
+[Unit]
+Description=my-container
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=
+TimeoutStartSec=0
+Restart=always
+ExecStartPre=-/bin/docker pull saniatk1985/docker-project:{{ build_number }}
+ExecStart=-/bin/docker run --network=my-network --name my_app saniatk1985/docker-project:{{ build_number }}
+ExecStop=-/bin/docker stop my_app
+
+[Install]
+WantedBy=multi-user.target
