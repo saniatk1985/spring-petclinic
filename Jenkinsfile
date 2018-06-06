@@ -37,13 +37,13 @@ pipeline {
 
              agent {
                 docker {
-                   image 'ansible/ansible'
+                   image 'williamyeh/ansible:ubuntu16.04'
                    args '--privileged --volume=/run/docker.sock:/var/run/docker.sock:rw'
                } 
            }
 
             steps {
-                checkout scm
+                //checkout scm
                 withCredentials([[
                  $class: 'SSHUserPrivateKeyBinding',
                   credentialsId: '12334',
