@@ -33,19 +33,19 @@
       docker_network:
       name: my-network
     
-    -name: Create db container and connect to network
-     docker_container:
-       name: db_test
-       image: "mariadb:latest"
-       networks:
-         - name: my-network
-       volumes:
-         - /db:/var/lib/mysql
-       env:
-         MYSQL_USER: myuser
-         MYSQL_PASSWORD: 1234
-         MYSQL_DATABASE: pc
-         MYSQL_ROOT_PASSWORD: passwd
+    - name: Create db container and connect to network
+      docker_container:
+        name: db_test
+        image: "mariadb:latest"
+        networks:
+          - name: my-network
+        volumes:
+          - /db:/var/lib/mysql
+        env:
+          MYSQL_USER: myuser
+          MYSQL_PASSWORD: 1234
+          MYSQL_DATABASE: pc
+          MYSQL_ROOT_PASSWORD: passwd
 
     - name: Restart my service
       service:
@@ -66,20 +66,20 @@
  
      
  
-  - name: Wait for the application to start
-    wait_for:
-       timeout: 60
-       host: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
-       port: 8080
+    - name: Wait for the application to start
+      wait_for:
+        timeout: 60
+        host: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+        port: 8080
 
-  - name: application healthcheck
-    uri:
-      url: "http://{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}:8080/manage/health"
-      return_content: yes
-    register: health
+    - name: application healthcheck
+      uri:
+        url: "http://{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}:8080/manage/health"
+        return_content: yes
+      register: health
 
-  - name: Сheck if the application is running
-    debug: msg='The application is running'
-    when: health.json.status == "UP"
+    - name: Сheck if the application is running
+      debug: msg='The application is running'
+      when: health.json.status == "UP"
 
 
