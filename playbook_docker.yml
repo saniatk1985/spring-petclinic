@@ -52,12 +52,12 @@
         name: my.service
         state: restarted
     
-    - name: Add a container to a network, leaving existing containers connected
-      docker_network:
-        name: my_network
-        connected:
-          - my_app
-        appends: yes  
+    #- name: Add a container to a network, leaving existing containers connected
+    #  docker_network:
+    #    name: my_network
+    #    connected:
+    #      - my_app
+    #    appends: yes  
       
       
 
