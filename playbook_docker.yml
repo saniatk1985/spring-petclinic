@@ -44,7 +44,8 @@
        env:
          MYSQL_USER: myuser
          MYSQL_PASSWORD: 1234
-         MYSQL_DATABASE: pc  
+         MYSQL_DATABASE: pc
+         MYSQL_ROOT_PASSWORD: passwd
 
     - name: Restart my service
       service:
