@@ -20,11 +20,11 @@
   tasks:
     - name: Copy service to deployment host
       template:
-      src: ./my.service
-      dest: /etc/systemd/system/
-      owner: root
-      group: root
-      mode: 0644
+        src: ./my.service
+        dest: /etc/systemd/system/
+        owner: root
+        group: root
+        mode: 0644
      
     - name: Reload systemd units
       shell: systemctl daemon-reload
