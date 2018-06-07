@@ -8,6 +8,8 @@ Type=
 TimeoutStartSec=0
 Restart=always
 ExecStartPre=-/bin/docker pull saniatk1985/docker-project:{{ build_number }}
+ExecStartPre=-/bin/docker stop my_app
+ExecStartPre=-/bin/docker rm -f my_app
 ExecStart=-/bin/docker run --network=my_network --name my_app -p 8080:8080 saniatk1985/docker-project:{{ build_number }}
 ExecStop=-/bin/docker stop my_app
 
