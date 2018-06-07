@@ -39,7 +39,7 @@ pipeline {
 
             steps {
                 echo 'test'
-                //checkout scm
+                checkout scm
               //  withCredentials([[
               //   $class: 'SSHUserPrivateKeyBinding',
               //    credentialsId: '12334',
