@@ -30,12 +30,12 @@ pipeline {
 
         stage('copy to remote host and start') {
 
-             agent {
-                docker {
-                   image 'williamyeh/ansible:ubuntu16.04'
-                   args '--privileged --volume=/run/docker.sock:/var/run/docker.sock:rw'
-               } 
-           }
+             agent any //{
+                //docker {
+                  // image 'williamyeh/ansible:ubuntu16.04'
+                   //args '--privileged --volume=/run/docker.sock:/var/run/docker.sock:rw'
+               //} 
+           //}
 
             steps {
                 echo 'test'
@@ -46,7 +46,7 @@ pipeline {
                   keyFileVariable: 'keyfile'
                   ]]) { 
                                 
-                sh 'ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -vvv -i ./hosts --private-key=${keyfile} --extra-vars "ansible_ssh_user=987 build_number=${BUILD_NUMBER}" playbook_docker.yml'  
+                sh 'ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -vvv -i ./hosts --private-key=${keyfile} --extra-vars "build_number=${BUILD_NUMBER}" playbook_docker.yml'  
                 //sh 'ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ./hosts --private-key=${keyfile} --extra-vars "db_name=pc db_port=3306 db_user=san db_pass=1234 ap_user=san ap_pass=123456" playbook_app1.yml' 
              
                     }
