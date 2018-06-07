@@ -56,7 +56,7 @@
       docker_network:
         name: my_network
         connected:
-          - myapp
+          - my_app
         appends: yes  
       
       
