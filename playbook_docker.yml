@@ -31,14 +31,14 @@
               
     - name: Create a network
       docker_network:
-      name: my-network
+        name: my_network
     
     - name: Create db container and connect to network
       docker_container:
         name: db_test
         image: "mariadb:latest"
         networks:
-          - name: my-network
+          - name: my_network
         volumes:
           - /db:/var/lib/mysql
         env:
@@ -54,7 +54,7 @@
     
     - name: Add a container to a network, leaving existing containers connected
       docker_network:
-        name: my-network
+        name: my_network
         connected:
           - myapp
         appends: yes  
