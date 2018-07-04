@@ -11,7 +11,7 @@ USER user
 COPY --from=builder --chown=user:user /app/target/*.jar .
 
 ENV DB_USER=myuser
-ENV DB_HOST=db_test
+ENV DB_HOST=db-service
 ENV DB_PASS=1234
 ENV DB_NAME=pc
 ENV DB_PORT=3306
