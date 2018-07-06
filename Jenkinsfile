@@ -42,7 +42,7 @@ pipeline {
                   keyFileVariable: 'keyfile'
                   ]]) { 
                                 
-                sh 'kubectl apply -f app-deployment.yaml'
+                sh 'su jenkins -c "kubectl apply -f app-deployment.yaml"'
              
                     }
                 
