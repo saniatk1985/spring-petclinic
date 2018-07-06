@@ -36,15 +36,10 @@ pipeline {
             steps {
                 echo 'test'
                 checkout scm
-                withCredentials([[
-                 $class: 'SSHUserPrivateKeyBinding',
-                  credentialsId: '12334',
-                  keyFileVariable: 'keyfile'
-                  ]]) { 
-                                
-                sh 'su jenkins -c "kubectl apply -f app-deployment.yaml"'
+                    
+                sh 'kubectl apply -f app-deployment.yaml'
              
-                    }
+                    
                 
             }
         }
