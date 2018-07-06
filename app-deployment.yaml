@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
       - name: petclinic
-        image: saniatk1985/docker-project:latest
+        image: saniatk1985/docker-project:v1
         
         env:
           - name: DB_NAME
