@@ -37,7 +37,7 @@ pipeline {
                 echo 'test'
                 checkout scm
                     
-                sh 'kubectl apply -f app-deployment.yaml'
+                sh 'kubectl apply -f https://raw.githubusercontent.com/saniatk1985/spring-petclinic/kubernetes/app-deployment.yaml'
              
                     
                 
