@@ -36,8 +36,7 @@ pipeline {
             steps {
                 echo 'test'
                 checkout scm
-                    
-                sh 'kubectl apply -f https://raw.githubusercontent.com/saniatk1985/spring-petclinic/kubernetes/app-deployment.yaml'
+                sh 'kubectl apply -f https://raw.githubusercontent.com/saniatk1985/spring-petclinic/kubernetes/app-deployment.yaml --kubeconfig="/var/lib/jenkins/.kube/config"'
              
                     
                 
